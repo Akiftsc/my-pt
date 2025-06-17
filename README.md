@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏋️‍♂️ AI Fitness Form Analyzer
 
-## Getting Started
+**AI-powered workout video analysis for perfect exercise form**
 
-First, run the development server:
+Analyze your fitness videos with Google's Gemini AI and get instant form feedback - all running natively in your browser.
+
+![Next.js](https://img.shields.io/badge/Next.js-15.3.3-black) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![Gemini AI](https://img.shields.io/badge/Gemini-2.0--flash-orange)
+
+## ✨ Features
+
+- **🤖 AI Analysis**: Exercise detection + form error identification
+- **📱 Cross-Platform**: iOS Safari optimized, desktop compatible  
+- **🎬 Smart Processing**: Audio removal, compression, duration validation (5-180s)
+- **⚡ Real-time Estimates**: Processing time predictions based on video size
+- **🌍 Turkish Support**: Detailed feedback in Turkish
+
+## 🚀 Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/ai-fitness-analyzer.git
+cd ai-fitness-analyzer
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+create .env.local:
+GEMINI_API=your_google_ai_api_key_here
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+npm run dev
+# Open http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📊 Platform Support
 
-## Learn More
+|Platform|Max Upload Size (compressed)|Processing|
+|---|---|---|
+|**iOS Safari**|70MB|Direct upload|
+|**Desktop/Android**|20MB|Audio removal + compression|
 
-To learn more about Next.js, take a look at the following resources:
+## 🎯 How It Works
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Upload**: Video (5-180 seconds)
+2. **Process**: Audio removal + compression (non-iOS)
+3. **Analyze**: Gemini AI form analysis
+4. **Results**: Turkish feedback with improvement tips
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with Next.js + TypeScript + Gemini AI 🚀
