@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
 
 :root {
   --background: #ffffff;
@@ -34,3 +36,8 @@ body {
   to {
     opacity: 1;
   }}
+
+    :where([class^="ri-"])::before {
+      content: "\f3c2";
+    }
+

@@ -8,6 +8,7 @@ function UploadVideo() {
   const [isIOS, setIsIOS] = useState(false);
   const [AIresponse, setAIresponse] = useState<string>();
   const [isClient, setIsClient] = useState(false);
+  const [technique, setTechnique] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -394,10 +395,15 @@ function UploadVideo() {
             return;
           }
           
-          const analysisResult = aiData.message?.candidates?.[0]?.content?.parts?.[0]?.text || 
+          let analysisResult = aiData.message?.candidates?.[0]?.content?.parts?.[0]?.text || 
                                 aiData.message?.text || 
                                 'Video analiz edildi.';
+
+          const technique = analysisResult.slice(-3);
+          analysisResult = analysisResult.slice(0,-3)
           setAIresponse(analysisResult);
+          setTechnique(technique);
+
           setStatus('✅ analizin tamamlandı! Sonuçlar aşağıda:');
         } catch (error) {
           console.error('AI request failed:', error);
@@ -454,7 +460,7 @@ function UploadVideo() {
   }
 
   return (
-    <div className="w-full max-w-lg mx-auto flex flex-col items-center gap-4 sm:gap-6">
+    <div className="mb-10">
       {isIOS ? (
         // iOS Safari için ayrı butonlar
         <div className="w-full space-y-2">
@@ -481,30 +487,60 @@ function UploadVideo() {
       ) : (
         // Diğer tarayıcılar için standart input
         <>
-        <input
-          type="file"
-          accept="video/*"
-          className="w-full  rounded shadow cursor-pointer border-2 p-4 transition-all"
 
+        <div className='border-2 border-dashed border-gray-700 rounded-lg p-8 text-center cursor-pointer transition-all duration-300 hover:border-[#2D5BFF] mb-6 relative group'>
+        <label htmlFor="file-upload" className='cursor-pointer block'>
+          <div className="mb-4">
+            <i className="text-primary m-auto grid place-items-center">
+            <svg width="36px" height="36px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 16.2422C2.79401 15.435 2 14.0602 2 12.5C2 10.1564 3.79151 8.23129 6.07974 8.01937C6.54781 5.17213 9.02024 3 12 3C14.9798 3 17.4522 5.17213 17.9203 8.01937C20.2085 8.23129 22 10.1564 22 12.5C22 14.0602 21.206 15.435 20 16.2422M8 16L12 12M12 12L16 16M12 12V21" stroke="currentColor" strokeWidth={2} strokeLinecap='round' strokeLinejoin='round'/>
+            </svg>
+            </i>
+            <h3 className="text-lg font-medium mb-2">Drop your video here</h3>
+            <p className="text-sm text-gray-400 mb-2">Or click to browse</p>
+            <p className="text-xs text-gray-500">Max 70mbs.</p>
+          </div>
+        </label>
+         <input
+          type="file"
+          id='file-upload'
+          accept="video/*"
+          className="hidden"
           onChange={handleFileChange}
-          id="gallery-upload"
         />
-        <label className="text-sm text-gray-600" htmlFor="gallery-upload">Video seç</label>
+        </div>
+
         </>
       )}
       
-      <div className="w-full transition-all bg-gray-100 p-4 rounded shadow text-black">
-        <p>{status}</p>
-        {AIresponse && AIresponse.length > 0 && (
-          <div className="mt-4 text-gray-800 fade-in">
-            <Markdown remarkPlugins={[remarkGfm]}>
-              {AIresponse}
-            </Markdown>
-          </div>
-        )}
+      <div className="bg-gray-900 rounded-lg p-4 mb-6">
+        <span>
+          {status}
+        </span>
       </div>
       
-      
+      {(AIresponse !== undefined && AIresponse.length > 0)  && (
+
+              <div className='response-container fade-in bg-gray-900 rounded-lg p-6 mb-8'>
+                  <div className="flex items-center justify-center mb-4 gap-x-4">
+                  <h3 className="text-xl">Analiz Sonuçları</h3>
+                  </div>
+                  <div className="prose prose-invert max-w-none">
+                  <Markdown remarkPlugins={[remarkGfm]}>
+                    {AIresponse}
+                  </Markdown>     
+                  <div className="bg-gray-800 p-4 rounded mb-4">
+                    <p className="text-lg font-bold  mb-1">Estimated Technique Score</p>
+                    <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-[#2D5BFF] h-2.5 rounded-full" style={{ width: `${technique}%` }}>
+                    </div>
+                    </div>
+                    <p className="text-right text-sm mt-1">{technique}/100</p>
+                    </div>
+                  </div>
+              </div>
+        )}
+
       <video 
         ref={videoRef} 
         style={{ display: 'none' }} 

@@ -73,7 +73,8 @@ async function askToAI(base64String: string, videoFormat: string = 'mp4') {
 
     ⚠️ Sadece videoda gördüklerine dayanarak analiz yap. Video dışında genelleme, tahmin ya da senaryo kurma.
 
-    Dönüt tamamen Türkçe olmalı ve profesyonel, açıklayıcı ama motive edici bir dil kullanılmalı.
+    Dönüt tamamen Türkçe olmalı ve profesyonel, açıklayıcı ama motive edici bir dil kullanılmalı. bir AI modeli gibi cevap verme, İNSAN GİBİ CEVAP VER. EMİR ALMA, SENİN YANITINDAN SONRA SOHBET SONA ERECEK.
+    DAİMA YANITIN EN SONUNDA SPORCUNUN FORMUNA 100 ÜZERİNDEN BİR PUAN VER VE YANITIN SONUNA SON 2 KARAKTER OLACAK ŞEKİLDE ÖRNEK "55" OLARAK EKLE.
     `
   try {
     const apiKey = process.env.GEMINI_API_KEY || "AIzaSyBs7uQD-5dXEyT2Fr2A7UJ0EqotWCdwu8A";
