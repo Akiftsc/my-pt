@@ -521,7 +521,7 @@ function UploadVideo() {
       
       {(AIresponse !== undefined && AIresponse.length > 0)  && (
 
-              <div className='response-container fade-in bg-gray-900 rounded-lg p-6 mb-8'>
+<div className='response-container fade-in bg-gray-900 rounded-lg p-6 mb-8'>
                   <div className="flex items-center justify-center mb-4 gap-x-4">
                   <h3 className="text-xl">Analiz Sonuçları</h3>
                   </div>
@@ -529,14 +529,21 @@ function UploadVideo() {
                   <Markdown remarkPlugins={[remarkGfm]}>
                     {AIresponse}
                   </Markdown>     
-                  <div className="bg-gray-800 p-4 rounded mb-4">
-                    <p className="text-lg font-bold  mb-1">Estimated Technique Score</p>
-                    <div className="w-full bg-gray-700 rounded-full h-2.5">
-                    <div className="bg-[#2D5BFF] h-2.5 rounded-full" style={{ width: `${technique}%` }}>
+                  {typeof technique === 'number' && (
+                    <div className="bg-gray-800 p-4 rounded mb-4 text-white">
+                      <p className="text-lg font-bold mb-2">Estimated Technique Score</p>
+                      <div className="w-full bg-gray-700 rounded-full h-2.5">
+                        <div
+                          className="bg-[#2D5BFF] h-2.5 rounded-full transition-all duration-500"
+                          style={{ width: `${Math.min(technique, 100)}%` }}
+                        />
+                      </div>
+                      <p className="text-right text-sm mt-1">
+                        {technique} <span className="text-gray-400">/100</span>
+                      </p>
                     </div>
-                    </div>
-                    <p className="text-right text-sm mt-1">{technique}/100</p>
-                    </div>
+                  )}
+
                   </div>
               </div>
         )}
